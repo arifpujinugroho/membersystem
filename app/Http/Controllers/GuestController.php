@@ -42,7 +42,7 @@ class GuestController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'pasfoto' => 'required|file|image|mimes:jpeg,png,jpg|max:5120',
-            'nama' => 'required|string',
+            'nama' => 'required|string|max:25',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string',
             'kode' => 'required|integer',

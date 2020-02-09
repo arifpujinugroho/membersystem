@@ -42,9 +42,9 @@ Registrasi
 								</div>
 							</div>
 						<div class="form-group">
-							<label>Nama Lengkap<strong class="text-danger">*</strong></label>
+							<label>Nama<strong class="text-danger">*</strong></label>
 							<div class="input-group">
-								<input type="text" name="nama" id="nama" class="validate[required] form-control" placeholder="Nama Lengkap">
+								<input type="text" name="nama" id="nama" class="validate[required,maxSize[25]] form-control" placeholder="Nama Max 25 Karakter">
 							</div>
 						</div>
                         <div class="form-group">

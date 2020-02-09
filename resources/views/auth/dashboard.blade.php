@@ -83,7 +83,7 @@
                                                 @endif
                                             @else
                                                 @if(Auth::user()->level == "Anggota")
-                                                    <button id="lihatKartu" data-kode="{{\Crypt::encryptString(Auth::user()->id)}}" class="btn btn-primary btn-mini"><i class="fa fa-print" aria-hidden="true"></i> kartu anggota</button>
+                                                    <a href="{{url('/kartu')}}"><button id="lihatKartu" class="btn btn-primary btn-mini"><i class="fa fa-print" aria-hidden="true"></i> kartu anggota</button></a>
                                                 @endif
                                             @endif
                                             </div>

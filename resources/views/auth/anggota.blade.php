@@ -29,7 +29,6 @@ Anggota
             <div>
                 <table id="memberTable" class="table table-striped" width="100%">
                     <thead>
-                        <th>Status</th>
                         <th>Nama Lengkap</th>
                         <th>Instansi</th>
                         <th>Jenis Kelamin</th>
@@ -37,7 +36,8 @@ Anggota
                         <th>Tempat Lahir</th>
                         <th>Tanggal Lahir</th>
                         <th>Alamat</th>
-                        <th>Aksi</th>
+                        <th>Status</th>
+                        <th>Reset Akun</th>
                     </thead>
                 </table>
             </div>

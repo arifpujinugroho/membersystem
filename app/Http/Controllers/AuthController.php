@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Instansi;
 use Auth;
 use File;
+use Hash;
+use PDF;
 use App\User;
 use Validator;
 
@@ -55,16 +57,68 @@ class AuthController extends Controller
 
      public function Anggota()
      {
-         return view('auth\anggota');
+
+        if(Auth::user()->level == "Admin"){
+            return view('auth\anggota');
+        }else{
+            abort(403, 'Unauthorized action.');
+        }
      }
 
      public function DataAnggota()
      {
         if(Auth::user()->level == "Admin"){
-            $d = User::where('level','!=','Admin')->join('instansi','instansi.id','users.id_instansi')->get();
+            $d = User::select('users.id as id',
+            'name',
+            'email',
+            'tanggallahir',
+            'foto',
+            'bukti',
+            'telepon',
+            'tempatlahir',
+            'email_verified_at',
+            'jns_kel',
+            'alamat',
+            'instansi.nama_instansi')->where('level','!=','Admin')->join('instansi','instansi.id','users.id_instansi')->get();
             return $d;
         }else{
             return response()->json(['error' => 'Not authorized.'],403);
         }
+     }
+
+     public function AccAnggota(Request $request)
+     {
+         if(Auth::user()->level == "Admin"){
+            $a = User::whereid($request->get('id'))->first();
+            $a->email_verified_at = \Carbon\Carbon::now()->toDateTimeString();
+            $a->save();
+         }else{
+            return response()->json(['error' => 'Not authorized.'],403);
+         }
+     }
+
+     public function ResetAnggota(Request $request)
+     {
+         if(Auth::user()->level == "Admin"){
+            $d = User::whereid($request->get('id'))->first();
+
+            $a = User::whereid($request->get('id'))->first();
+            $a->password = Hash::make($d->email);
+            $a->save();
+         }else{
+            return response()->json(['error' => 'Not authorized.'],403);
+         }
+     }
+
+     public function Kartu()
+     {
+         if(is_null(Auth::user()->email_verified_at)){
+            abort(403, 'Unauthorized action.');
+         }else{
+            $data = User::select('name','nama_instansi')->join('instansi','instansi.id','users.id_instansi')->where('users.id','=', Auth::user()->id)->first();
+            $d = [$data->name, $data->nama_instansi];
+            $pdf = PDF::loadView('auth.kartu', ['data'=>$data]);
+             return $pdf->download('Kartu '.$data->name.'.pdf');
+         }
      }
 }

@@ -24,5 +24,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/anggota','AuthController@Anggota');
     Route::get('/dataanggota','AuthController@DataAnggota');
+    Route::get('/accanggota','AuthController@AccAnggota');
+    Route::get('/resetanggota','AuthController@ResetAnggota');
+    Route::get('/kartu','AuthController@Kartu');
 });
 
