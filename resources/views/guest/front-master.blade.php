@@ -261,8 +261,6 @@
         <script type="text/javascript" src="{{url('assets/js/jquery.validationEngine-en.js')}}"></script>
         <script type="text/javascript" src="{{url('assets/js/jquery.validationEngine.js')}}"></script>
 
-        @include('layout.browser')
-
         @yield('footer')
 
         <script>
